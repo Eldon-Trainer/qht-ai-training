@@ -1,4 +1,4 @@
+openai>=0.27.0
 streamlit
-openai>=1.0.0
 pandas
 python-dotenv
