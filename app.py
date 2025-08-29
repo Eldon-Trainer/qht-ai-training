@@ -60,10 +60,8 @@ if st.button("Evaluate My Answer") and user_answer.strip():
             )
             feedback = response.choices[0].message.content
 
-        except openai.error.RateLimitError:
-            feedback = "API rate limit reached. Please try again later."
-        except openai.error.AuthenticationError:
-            feedback = "Authentication error. Check your API key."
+        except openai.OpenAIError as e:
+            feedback = f"OpenAI API error: {e}"
         except Exception as e:
             feedback = f"An unexpected error occurred: {e}"
 
@@ -93,3 +91,4 @@ if st.checkbox("Show Previous Attempts"):
         st.dataframe(df)
     else:
         st.info("No previous attempts yet.")
+
