@@ -110,7 +110,6 @@ python-dotenv
 ```
 # QHT AI Training — Streamlit Prototype
 
-This repository contains a simple Streamlit prototype for an AI-driven hybrid (text + audio upload) trainer that asks questions, transcribes audio using OpenAI's speech-to-text, and scores answers using an LLM.
 
 ## Files
 - `app.py` — main Streamlit app (paste into GitHub as the app file)
