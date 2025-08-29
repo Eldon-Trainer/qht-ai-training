@@ -2,7 +2,6 @@ import streamlit as st
 import openai
 import pandas as pd
 import os
-from openai.error import RateLimitError, AuthenticationError, OpenAIError
 
 # Load OpenAI API key from Streamlit Secrets
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -61,12 +60,10 @@ if st.button("Evaluate My Answer") and user_answer.strip():
             )
             feedback = response.choices[0].message.content
 
-        except RateLimitError:
+        except openai.error.RateLimitError:
             feedback = "API rate limit reached. Please try again later."
-        except AuthenticationError:
+        except openai.error.AuthenticationError:
             feedback = "Authentication error. Check your API key."
-        except OpenAIError as e:
-            feedback = f"OpenAI API error: {e}"
         except Exception as e:
             feedback = f"An unexpected error occurred: {e}"
 
