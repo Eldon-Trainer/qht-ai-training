@@ -50,14 +50,22 @@ if st.button("Evaluate My Answer") and user_answer.strip():
 
         Score the candidate from 1-10 and give feedback in concise points.
         """
-        response = openai.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You are a strict medical trainer."},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        feedback = response.choices[0].message.content
+        try:
+            response = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a strict medical trainer."},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            feedback = response.choices[0].message.content
+        except openai.error.RateLimitError:
+            feedback = "API rate limit reached. Please try again later."
+        except openai.error.AuthenticationError:
+            feedback = "Authentication error. Check your API key."
+        except Exception as e:
+            feedback = f"An unexpected error occurred: {e}"
+
         st.markdown("### 📝 Feedback")
         st.write(feedback)
 
